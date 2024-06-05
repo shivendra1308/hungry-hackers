@@ -1,5 +1,6 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useReducer } from "react";
 
+//Global Store created with the use of createContext effect
 const CartContext = createContext({
   items: [],
   addItem: (item) => {},
@@ -7,7 +8,7 @@ const CartContext = createContext({
 });
 
 function cartReducer(state, action) {
-  if (action.type === 'ADD_ITEM') {
+  if (action.type === "ADD_ITEM") {
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.item.id
     );
@@ -28,7 +29,7 @@ function cartReducer(state, action) {
     return { ...state, items: updatedItems };
   }
 
-  if (action.type === 'REMOVE_ITEM') {
+  if (action.type === "REMOVE_ITEM") {
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.id
     );
@@ -52,21 +53,23 @@ function cartReducer(state, action) {
   return state;
 }
 
+//create a provider so that cart context can be used globally by wrapping it over components
 export function CartContextProvider({ children }) {
+  //create a reducer to use and modify that context via actions , pass initial state in reducer
   const [cart, dispatchCartAction] = useReducer(cartReducer, { items: [] });
 
   function addItem(item) {
-    dispatchCartAction({ type: 'ADD_ITEM', item });
+    dispatchCartAction({ type: "ADD_ITEM", item });
   }
 
   function removeItem(id) {
-    dispatchCartAction({ type: 'REMOVE_ITEM', id });
+    dispatchCartAction({ type: "REMOVE_ITEM", id });
   }
 
   const cartContext = {
     items: cart.items,
-    addItem,
-    removeItem
+    addItem: addItem,
+    removeItem: removeItem,
   };
 
   return (
