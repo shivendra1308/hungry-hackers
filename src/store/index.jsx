@@ -1,9 +1,8 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
-
-// createSlice is just like createReducer , 
+// createSlice is just like createReducer ,
 // it creates its own copy of state thus we can directly manipulate the state
-// type of action is not required as its has actions that can be directed siapatched from components 
+// type of action is not required as its has actions that can be directed siapatched from components
 const mealItemSlice = createSlice({
   name: "handelMeals",
   initialState: {
@@ -29,16 +28,32 @@ const mealItemSlice = createSlice({
     },
   },
 });
+const userProgressSlice = createSlice({
+  name: "progress",
+  initialState: {
+    progress: "",
+  },
+  reducers: {
+    showCart(state) {
+      state.progress = "cart";
+    },
 
-
-//similar to createStore
-// multiple reducers can be configured together in the form Sclies 
-const store = configureStore({
-  reducer: {
-    mealItem: mealItemSlice.reducer, // fetch data to the component similar to subscribing
+    hideCart(state) {
+      state.progress = "";
+    },
   },
 });
 
-export const mealItemActions = mealItemSlice.actions; // dispatch action to sclice from components 
+//similar to createStore
+// multiple reducers can be configured together in the form Sclies
+const store = configureStore({
+  reducer: {
+    mealItem: mealItemSlice.reducer, // fetch data to the component similar to subscribing
+    userProgress: userProgressSlice.reducer,
+  },
+});
+
+export const mealItemActions = mealItemSlice.actions; // dispatch action to sclice from components
+export const userProgressActions = userProgressSlice.actions; // dispatch action to sclice from components
 
 export default store;
