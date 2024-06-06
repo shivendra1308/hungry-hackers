@@ -3,7 +3,10 @@ import logoImg from "../assets/logo.jpg";
 import { useSelector } from "react-redux";
 
 export default function Header() {
-  const cartCtx = useSelector((state) => state?.counter.items);
+  //useSelector is used to subscribe values from the store 
+  // we have subscribe to value which is USED IN CONFIGUR STORE
+  
+  const cartCtx = useSelector((state) => state?.mealItem.items);
   const totalCartItems = cartCtx.reduce((totalNumberOfItems, item) => {
     return totalNumberOfItems + item.quantity;
   }, 0);

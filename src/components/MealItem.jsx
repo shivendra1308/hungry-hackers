@@ -1,14 +1,18 @@
 import { currencyFormatter } from "../utils/formatting.js";
 import Button from "./UI/Button.jsx";
-import { counterActions } from "../store/index.jsx";
+import { mealItemActions } from "../store/index.jsx";
 import { useDispatch } from 'react-redux';
 
 export default function MealItem({ meal }) {
+
+  //store actions can be dispatched from here by useDispatch 
   const dispatch = useDispatch();
 
   const handleAddMealToCart = () => {
-    dispatch(counterActions.addItem(meal));
+  // we have to use those Actions which is CONFIGURED in STORE
+    dispatch(mealItemActions.addItem(meal));
   };
+  
   return (
     <li className="meal-item">
       <article>
