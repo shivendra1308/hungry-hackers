@@ -1,16 +1,14 @@
-import { useContext } from "react";
-
 import { currencyFormatter } from "../utils/formatting.js";
-import Button from "../UI/Button.jsx";
-import CartContext from "../store/CartContext.jsx";
+import Button from "./UI/Button.jsx";
+import { counterActions } from "../store/index.jsx";
+import { useDispatch } from 'react-redux';
 
 export default function MealItem({ meal }) {
-  const cartCtx = useContext(CartContext);
+  const dispatch = useDispatch();
 
-  function handleAddMealToCart() {
-    cartCtx.addItem(meal);
-  }
-
+  const handleAddMealToCart = () => {
+    dispatch(counterActions.addItem(meal));
+  };
   return (
     <li className="meal-item">
       <article>

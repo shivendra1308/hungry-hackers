@@ -1,14 +1,10 @@
-
-import { useContext } from 'react';
-
-import Button from '../UI/Button.jsx';
-import logoImg from '../assets/logo.jpg';
-import CartContext from '../store/CartContext.jsx';
+import Button from "./UI/Button.jsx";
+import logoImg from "../assets/logo.jpg";
+import { useSelector } from "react-redux";
 
 export default function Header() {
-  const cartCtx = useContext(CartContext);
-
-  const totalCartItems = cartCtx.items.reduce((totalNumberOfItems, item) => {
+  const cartCtx = useSelector((state) => state?.counter.items);
+  const totalCartItems = cartCtx.reduce((totalNumberOfItems, item) => {
     return totalNumberOfItems + item.quantity;
   }, 0);
 
